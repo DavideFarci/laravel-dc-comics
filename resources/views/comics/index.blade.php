@@ -2,9 +2,10 @@
 
 @section('contents')
     <div class="content">
+        <a class="btn btn-primary" href="{{ route('comics.create') }}">Nuovo</a>
         <div class="row row-cols-3">
             @foreach ($comics as $comic)
-                <div class="col">
+                <div class="col mb-3">
                     <div class="card h-100">
                         <img style="width: 100%" src="{{ $comic->thumb }}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -25,5 +26,7 @@
                 </div>
             @endforeach
         </div>
+        {{ $comics->links() }}
+
     </div>
 @endsection
