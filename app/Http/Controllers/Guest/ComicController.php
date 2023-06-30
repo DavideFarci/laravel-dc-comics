@@ -45,7 +45,7 @@ class ComicController extends Controller
             'title' => 'min:5|max:50',
             'description' => 'string',
             'thumb' => 'text|min:5|max:255',
-            'price' => 'tinyInteger|min:1|max:250',
+            'price' => 'integer|min:1|max:250',
             'series' => 'string|max:50',
             'sale_date' => 'date',
             'type' => 'string|max:50',
