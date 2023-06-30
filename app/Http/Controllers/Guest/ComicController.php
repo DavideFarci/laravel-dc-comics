@@ -40,7 +40,35 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validare i dati 
+        $request->validate([
+            'title' => 'required|min:5|max:250',
+            'description' => 'required|string|',
+            'thumb' => 'text|min:5|max:255',
+            'price' => 'required|min:5|max:250',
+            'series' => 'required|string|',
+            'sale_date' => 'tinyInteger|min:5|max:255',
+            'type' => 'tinyInteger|min:5|max:255',
+            // NON possiamo mettere un tetto massimo più ALTO di quello dal database MA possiamo volendo, metterlo più BASSO
+
+        ]);
+
+        $data = $request->all();
+        // Salvare i dati nel database
+        $newComic = new Comic();
+        $newComic->title = $data['title'];
+        $newComic->description = $data['description'];
+        $newComic->thumb = $data['thumb'];
+        $newComic->price = $data['price'];
+        $newComic->series = $data['series'];
+        $newComic->sale_date = $data['sale_date'];
+        $newComic->type = $data['type'];
+        $newComic->save();
+
+        // return 'commentare se serve debuggare';
+        // $newComic = Comic::create($data);
+
+        return redirect()->route('comics.show', ['comic' => $newComic->id]);
     }
 
     /**
