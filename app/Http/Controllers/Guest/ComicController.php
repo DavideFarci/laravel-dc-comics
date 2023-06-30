@@ -42,13 +42,13 @@ class ComicController extends Controller
     {
         // validare i dati 
         $request->validate([
-            'title' => 'required|min:5|max:250',
-            'description' => 'required|string|',
+            'title' => 'min:5|max:50',
+            'description' => 'string',
             'thumb' => 'text|min:5|max:255',
-            'price' => 'required|min:5|max:250',
-            'series' => 'required|string|',
-            'sale_date' => 'tinyInteger|min:5|max:255',
-            'type' => 'tinyInteger|min:5|max:255',
+            'price' => 'tinyInteger|min:1|max:250',
+            'series' => 'string|max:50',
+            'sale_date' => 'date',
+            'type' => 'string|max:50',
             // NON possiamo mettere un tetto massimo più ALTO di quello dal database MA possiamo volendo, metterlo più BASSO
 
         ]);
