@@ -42,9 +42,9 @@ class ComicController extends Controller
     {
         // validare i dati 
         $request->validate([
-            'title' => 'min:5|max:50',
+            'title' => 'string|min:5|max:50',
             'description' => 'string',
-            'thumb' => 'text|min:5|max:255',
+            'thumb' => 'string|min:5|max:255',
             'price' => 'integer|min:1|max:250',
             'series' => 'string|max:50',
             'sale_date' => 'date',
