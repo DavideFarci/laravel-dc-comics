@@ -67,6 +67,10 @@
                                     @method('delete')
                                     <button class="btn btn-danger hard_delete">Delete</button>
                                 </form>
+                                <form class="d-inline-block" method="POST" action="{{ route('comics.restore', ['comic' => $trashedComic->id]) }}">
+                                    @csrf
+                                    <button class="btn btn-danger">Restore</button>
+                                </form>
                               </p>
                             </div>
                           </div>

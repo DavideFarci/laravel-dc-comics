@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="{{ asset('js/myscript.js') }}"></script>
         <title>DC Comics</title>
         @vite('resources/js/app.js')
     </head>
     <body>
         <div class="container">
+            @include('partials.header')
             <main>
                 @yield('contents')
             </main>
