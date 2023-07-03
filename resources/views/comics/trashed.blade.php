@@ -3,11 +3,6 @@
 @section('contents')
     <div class="container">
         @if (session('delete_success'))
-            <div class="alert alert-danger">
-                {{ session('delete_success') }}
-            </div>
-        @endif
-        @if (session('delete_success'))
         @php $comic = session('delete_success') @endphp
         <div class="alert alert-danger">
             La pasta "{{ $comic->series }}" è stata eliminata
@@ -67,7 +62,7 @@
                               <p class="card-text">
                                 <a class="btn btn-primary" href="{{ route('comics.show', ['comic' => $trashedComic->id]) }}" class="card-link">Show</a>
                                 <a class="btn btn-success" href="{{ route('comics.edit', ['comic' => $trashedComic->id]) }}" class="card-link">Edit</a>
-                                <form class="d-inline-block" method="POST" action="{{ route('comics.destroy', ['comic' => $trashedComic->id]) }}">
+                                <form class="d-inline-block" method="POST" action="{{ route('comics.harddelete', ['comic' => $trashedComic->id]) }}">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger">Delete</button>
