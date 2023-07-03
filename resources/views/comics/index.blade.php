@@ -23,7 +23,6 @@
                 La comic "{{ $comic->series }}" è stata ripristinata
             </div>
         @endif
-        <a class="btn btn-primary" href="{{ route('comics.create') }}">Nuovo</a>
         <div class="row row-cols-3">
             @foreach ($comics as $comic)
                 <div class="col mb-3">

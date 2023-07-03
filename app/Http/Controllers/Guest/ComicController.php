@@ -27,7 +27,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::paginate(3); // SELECT * FROM `pastas`
+        $comics = Comic::paginate(6); // SELECT * FROM `pastas`
 
         // dd($pastas);
 
@@ -148,7 +148,7 @@ class ComicController extends Controller
     public function trashed()
     {
         // $comics = Comic::all(); // SELECT * FROM `comics`
-        $trashedComics = Comic::onlyTrashed()->paginate(3);
+        $trashedComics = Comic::onlyTrashed()->paginate(6);
 
         return view('comics.trashed', compact('trashedComics'));
     }
