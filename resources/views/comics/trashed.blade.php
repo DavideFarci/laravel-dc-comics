@@ -23,10 +23,9 @@
                 La comic "{{ $comic->series }}" è stata ripristinata
             </div>
         @endif
-        <a class="btn btn-primary" href="{{ route('comics.create') }}">Nuovo</a>
         <div class="row row-cols-3">
             @foreach ($trashedComics as $trashedComic)
-                <div class="col mb-3">
+                <div class="col h-100 mb-3">
                     {{-- <div class="card h-100">
                         <img style="width: 100%" src="{{ $trashedComic->thumb }}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -48,34 +47,34 @@
                         </form>
                         </div>
                     </div> --}}
-                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="card h-100 mb-3" style="max-width: 540px;">
                         <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src="{{ $trashedComic->thumb }}" class="img-fluid rounded-start" alt="image">
+                          <div class="col-md-6">
+                            <img style="object-fit: cover;" src="{{ $trashedComic->thumb }}" class="img-fluid rounded-start h-100" alt="image">
                           </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title">{{ $trashedComic->series}}</h5>
-                              <p class="card-text">{{ $trashedComic->type}}</p>
-                              <p class="card-text">{{ $trashedComic->sale_date}}</p>
-                              <p class="card-text">{{ $trashedComic->price}}</p>
-                              <p class="card-text">
-                                <a class="btn btn-primary" href="{{ route('comics.show', ['comic' => $trashedComic->id]) }}" class="card-link">Show</a>
-                                <a class="btn btn-success" href="{{ route('comics.edit', ['comic' => $trashedComic->id]) }}" class="card-link">Edit</a>
-                                <form class="d-inline-block" method="POST" action="{{ route('comics.harddelete', ['comic' => $trashedComic->id]) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger hard_delete">Delete</button>
-                                </form>
-                                <form class="d-inline-block" method="POST" action="{{ route('comics.restore', ['comic' => $trashedComic->id]) }}">
-                                    @csrf
-                                    <button class="btn btn-danger">Restore</button>
-                                </form>
-                              </p>
+                            <div style="height: 301px" class="col-md-6">
+                                <div style="background-color: lightgray" class="card-body h-100">
+                                <h5 class="card-title fs-6">{{ strtoupper($trashedComic->series)}}</h5>
+                                <p class="card-text">{{ strtoupper($trashedComic->type)}}</p>
+                                <p class="card-text">{{ $trashedComic->sale_date}}</p>
+                                <p class="card-text fs-bold">€ {{ $trashedComic->price}}</p>
+                                <p class="card-text">
+                                    <a style="font-size: .7em" class="btn btn-primary" href="{{ route('comics.show', ['comic' => $trashedComic->id]) }}" class="card-link">Show</a>
+                                    <a style="font-size: .7em" class="btn btn-success" href="{{ route('comics.edit', ['comic' => $trashedComic->id]) }}" class="card-link">Edit</a>
+                                    <form class="d-inline-block" method="POST" action="{{ route('comics.destroy', ['comic' => $trashedComic->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button style="font-size: .7em" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <form class="d-inline-block" method="POST" action="{{ route('comics.restore', ['comic' => $trashedComic->id]) }}">
+                                        @csrf
+                                        <button style="font-size: .7em" class="btn btn-warning">Restore</button>
+                                    </form>
+                                </p>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
                     </div>
             @endforeach
         </div>

@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="thumb" class="form-label">thumb</label>
+            <label for="thumb" class="form-label">Thumb</label>
             <input type="text" class="form-control @error('thumb') is-invalid @enderror" id="thumb" name="thumb" value="{{ old('thumb', $comic->thumb)}}">
             <div class="invalid-feedback">
                 @error('thumb') {{ $message }} @enderror

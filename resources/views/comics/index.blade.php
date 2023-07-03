@@ -25,7 +25,7 @@
         @endif
         <div class="row row-cols-3">
             @foreach ($comics as $comic)
-                <div class="col mb-3">
+                <div class="col h-100 mb-3">
                     {{-- <div class="card h-100">
                         <img style="width: 100%" src="{{ $comic->thumb }}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -47,31 +47,31 @@
                         </form>
                         </div>
                     </div> --}}
-                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="card h-100 mb-3" style="max-width: 540px;">
                         <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src="{{ $comic->thumb }}" class="img-fluid rounded-start" alt="image">
+                          <div class="col-md-6">
+                            <img style="object-fit: cover;" src="{{ $comic->thumb }}" class="img-fluid rounded-start h-100" alt="image">
                           </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title">{{ $comic->series}}</h5>
-                              <p class="card-text">{{ $comic->type}}</p>
-                              <p class="card-text">{{ $comic->sale_date}}</p>
-                              <p class="card-text">{{ $comic->price}}</p>
-                              <p class="card-text">
-                                <a class="btn btn-primary" href="{{ route('comics.show', ['comic' => $comic->id]) }}" class="card-link">Show</a>
-                                <a class="btn btn-success" href="{{ route('comics.edit', ['comic' => $comic->id]) }}" class="card-link">Edit</a>
-                                <form class="d-inline-block" method="POST" action="{{ route('comics.destroy', ['comic' => $comic->id]) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
-                              </p>
+                            <div style="height: 301px" class="col-md-6">
+                                <div style="background-color: lightgray" class="card-body h-100">
+                                <h5 class="card-title fs-6">{{ strtoupper($comic->series)}}</h5>
+                                <p class="card-text">{{ strtoupper($comic->type)}}</p>
+                                <p class="card-text">{{ $comic->sale_date}}</p>
+                                <p class="card-text fs-bold">€ {{ $comic->price}}</p>
+                                <p class="card-text">
+                                    <a style="font-size: .7em" class="btn btn-primary" href="{{ route('comics.show', ['comic' => $comic->id]) }}" class="card-link">Show</a>
+                                    <a style="font-size: .7em" class="btn btn-success" href="{{ route('comics.edit', ['comic' => $comic->id]) }}" class="card-link">Edit</a>
+                                    <form class="d-inline-block" method="POST" action="{{ route('comics.destroy', ['comic' => $comic->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button style="font-size: .7em" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </p>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
+                </div>
             @endforeach
         </div>
         {{ $comics->links() }}
