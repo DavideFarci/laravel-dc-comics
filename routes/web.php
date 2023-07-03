@@ -17,3 +17,4 @@ use App\Http\Controllers\Guest\ComicController;
 
 Route::get('/', [PageController::class, 'index']);
 route::resource('comics', ComicController::class);
+route::post('/comics/{comic}/restore', [ComicController::class, 'restore'])->name('comics.restore');

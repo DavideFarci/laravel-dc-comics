@@ -1,7 +1,12 @@
 @extends('layout.base')
 
 @section('contents')
-    <div class="content">
+    <div class="container">
+        @if (session('delete_success'))
+            <div class="alert alert-danger">
+                {{ session('delete_success') }}
+            </div>
+        @endif
         <a class="btn btn-primary" href="{{ route('comics.create') }}">Nuovo</a>
         <div class="row row-cols-3">
             @foreach ($comics as $comic)
@@ -20,7 +25,13 @@
                         </ul>
                         <div class="card-body">
                         <a href="{{ route('comics.show', ['comic' => $comic->id]) }}" class="card-link">Show</a>
-                        <a href="#" class="card-link">Create</a>
+                        <a href="{{ route('comics.edit', ['comic' => $comic->id]) }}" class="card-link">Edit</a>
+                        <form method="POST" action="{{ route('comics.destroy', ['comic' => $comic->id]) }}">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        {{-- <a href="#" class="card-link">Create</a> --}}
                         </div>
                     </div>
                 </div>

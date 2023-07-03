@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class ComicController extends Controller
 {
+    private $validations = [
+        'title' => 'required|string|min:5|max:50',
+        'description' => 'required|string',
+        'thumb' => 'required|string|min:5|max:255',
+        'price' => 'required|integer|min:1|max:250',
+        'series' => 'required|string|max:50',
+        'sale_date' => 'required|date',
+        'type' => 'required|string|max:50',
+        // NON possiamo mettere un tetto massimo più ALTO di quello dal database MA possiamo volendo, metterlo più BASSO
+    ];
+
+
     /**
      * Display a listing of the resource.
      *
@@ -41,17 +53,7 @@ class ComicController extends Controller
     public function store(Request $request)
     {
         // validare i dati 
-        $request->validate([
-            'title' => 'required|string|min:5|max:50',
-            'description' => 'required|string',
-            'thumb' => 'required|string|min:5|max:255',
-            'price' => 'required|integer|min:1|max:250',
-            'series' => 'required|string|max:50',
-            'sale_date' => 'required|date',
-            'type' => 'required|string|max:50',
-            // NON possiamo mettere un tetto massimo più ALTO di quello dal database MA possiamo volendo, metterlo più BASSO
-
-        ]);
+        $request->validate($this->validations);
 
         $data = $request->all();
         // Salvare i dati nel database
@@ -90,7 +92,7 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-        //
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -102,7 +104,24 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        //
+        //validare i dati
+        $request->validate($this->validations);
+
+
+        $data = $request->all();
+        //aggiornare i dati nel db
+        $comic->title = $data['title'];
+        $comic->description = $data['description'];
+        $comic->thumb = $data['thumb'];
+        $comic->price = $data['price'];
+        $comic->series = $data['series'];
+        $comic->sale_date = $data['sale_date'];
+        $comic->type = $data['type'];
+        $comic->update();
+
+        // return redirect()->route('comics.show', ['comic' => $newComic->id]);
+        // Equivalente
+        return to_route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
@@ -113,6 +132,12 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return to_route('comics.index')->with('delete_success', "La comic \"{$comic->series}\" è stata eliminata");
+    }
+
+    public function restore()
+    {
+        // Comic::withTrashed()->where('id', )
     }
 }
